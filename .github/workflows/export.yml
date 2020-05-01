@@ -41,24 +41,24 @@ jobs:
 
       - name: Import DB
         run: |
-          mysql -h 127.0.0.1 --P8889 -uroot -proot -e "SHOW DATABASES"
+          mysql -h 127.0.0.1 -P8889 -uroot -proot -e "SHOW DATABASES"
         continue-on-error: true
 
       - name: Import DB
         run: |
-          mysql -h 127.0.0.1 --P13306 -uroot -proot -e "SHOW DATABASES"
+          mysql -h 127.0.0.1 -P13306 -uroot -proot -e "SHOW DATABASES"
         continue-on-error: true
 
       - name: Import DB
         run: |
-          mysql -h 127.0.0.1 --P8889 -uroot -proot world < SQL/world.sql
+          mysql -h 127.0.0.1 -P8889 -uroot -proot world < SQL/world.sql
         continue-on-error: true
 
       - name: Composer Dependencies
-        run: composer install
+        run: pwd && cd scripts/vendor && composer install
 
       - name: Run Export Script
-        run: php scripts/export.php
+        run: pwd && cd .. && php export.php
         continue-on-error: true
 
       - name: Commit changed files
