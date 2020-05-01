@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Import DB
-        run: mysql --port ${{ job.services.mysql.ports['8889'] }} -u root -proot world < SQL/world.sql
+        run: mysql --port 8889 -u root -proot world < SQL/world.sql
 
       - name: Composer Dependencies
         run: composer install
