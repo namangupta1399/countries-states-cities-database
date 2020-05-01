@@ -48,8 +48,8 @@ jobs:
 
       - name: Import DB
         run: |
-        mysql -h 127.0.0.1 --P13306 -uroot -proot -e "SHOW DATABASES"
-        mysql -h 127.0.0.1 --P13306 -uroot -proot world < SQL/world.sql
+          mysql -h 127.0.0.1 --P13306 -uroot -proot -e "SHOW DATABASES"
+          mysql -h 127.0.0.1 --P13306 -uroot -proot world < SQL/world.sql
 
       - name: Composer Dependencies
         run: composer install
