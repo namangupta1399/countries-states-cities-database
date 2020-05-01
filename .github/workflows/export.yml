@@ -27,7 +27,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: world
         ports:
-          - 8889
+          - 13306:8889
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     strategy:
@@ -39,16 +39,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Verify MariaDB connection
-        env:
-          PORT: ${{ job.services.mysql.ports[8889] }}
+      - name: Verify MySQL connection
         run: |
-          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+          while ! mysqladmin ping -h"127.0.0.1" -P13306 --silent; do
+            echo 'starting...'
             sleep 1
           done
 
       - name: Import DB
-        run: mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports[8889] }} -uroot -proot world < SQL/world.sql
+        run: |
+        mysql -h 127.0.0.1 --P13306 -uroot -proot -e "SHOW DATABASES"
+        mysql -h 127.0.0.1 --P13306 -uroot -proot world < SQL/world.sql
 
       - name: Composer Dependencies
         run: composer install
