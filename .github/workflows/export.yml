@@ -39,6 +39,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Import DB
+        run: mysql -u root -p root world < SQL/world.sql
+
+      - name: Composer Dependencies
+        run: composer install
+
       - name: Run Export Script
         run: php scripts/export.php
 
