@@ -1,7 +1,7 @@
 name: Export JSON
 
 on:
-  pull_request:
+  push:
     branches:
       - test/GithubActions
 
@@ -14,7 +14,7 @@ on:
   #     - '!export.php'
 
 jobs:
-  export:
+  build:
     name: Export (PHP ${{ matrix.php-versions }})
 
     runs-on: ubuntu-latest
